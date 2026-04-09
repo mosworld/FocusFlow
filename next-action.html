@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>FocusFlow — What Should I Do Now?</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/layouts.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-page="next-action">
+
+  <div class="next-action">
+    <!-- Subtle gradient background -->
+    <div class="next-action__bg" style="background: radial-gradient(ellipse at center, var(--color-priority-critical) 0%, transparent 70%);"></div>
+
+    <div class="next-action__content page-enter" id="nextActionContent">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span class="toast__message"></span>
+    <button class="toast__undo">Undo</button>
+    <div class="toast__progress"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

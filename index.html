@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>FocusFlow — Dashboard</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/layouts.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-page="dashboard">
+
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header__top">
+        <a href="index.html" class="header__brand">
+          <svg class="header__logo" viewBox="0 0 32 32"><use href="assets/icons.svg#icon-logo"/></svg>
+          <span class="header__title">FocusFlow</span>
+        </a>
+
+        <div class="view-toggle">
+          <button class="view-toggle__btn view-toggle__btn--active" onclick="location.href='index.html'">
+            <svg width="16" height="16"><use href="assets/icons.svg#icon-grid"/></svg>
+            Dashboard
+          </button>
+          <button class="view-toggle__btn" onclick="location.href='feed.html'">
+            <svg width="16" height="16"><use href="assets/icons.svg#icon-list"/></svg>
+            Feed
+          </button>
+        </div>
+
+        <div class="header__actions">
+          <span class="header__date">Wed, Apr 9</span>
+          <a href="next-action.html" class="btn btn--primary" style="padding:8px 16px;min-height:36px;font-size:0.875rem;">
+            <svg width="16" height="16"><use href="assets/icons.svg#icon-sparkle"/></svg>
+            What now?
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar-wrapper">
+      <div class="filter-bar" id="filterBar">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Hero Task -->
+      <section class="hero-section" id="heroSection">
+        <!-- Rendered by JS -->
+      </section>
+
+      <!-- Task List -->
+      <section class="task-list" id="taskList">
+        <!-- Rendered by JS -->
+      </section>
+    </main>
+
+    <!-- FAB -->
+    <a href="telegram.html" class="fab" title="Add task via Telegram">
+      <svg><use href="assets/icons.svg#icon-plus"/></svg>
+    </a>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+      <span class="toast__message"></span>
+      <button class="toast__undo">Undo</button>
+      <div class="toast__progress"></div>
+    </div>
+
+    <!-- Task Detail Overlay -->
+    <div class="detail-overlay" id="detailOverlay" onclick="closeTaskDetail()"></div>
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-panel__handle"></div>
+      <div class="detail-panel__content">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="detail-panel__actions">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

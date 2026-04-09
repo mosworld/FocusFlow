@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>FocusFlow — Task Detail</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/layouts.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-page="task-detail">
+
+  <!--
+    Task detail is normally shown as a slide-up panel on dashboard/feed.
+    This standalone page demonstrates the full detail view for direct linking.
+  -->
+
+  <div class="app">
+    <header class="header">
+      <div class="header__top">
+        <a href="index.html" class="btn btn--ghost btn--icon" title="Back">
+          <svg width="20" height="20"><use href="assets/icons.svg#icon-arrow-left"/></svg>
+        </a>
+        <span class="header__title">Task Detail</span>
+        <div class="header__actions">
+          <a href="index.html" class="btn btn--ghost btn--icon" title="Close">
+            <svg width="20" height="20"><use href="assets/icons.svg#icon-close"/></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main page-enter" id="taskDetailMain">
+      <!-- Full detail rendered by JS on load -->
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span class="toast__message"></span>
+    <button class="toast__undo">Undo</button>
+    <div class="toast__progress"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/interactions.js"></script>
+  <script>
+    // Standalone task detail page — show first task or URL param
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const taskId = parseInt(params.get('id')) || 1;
+      const task = TASKS.find(t => t.id === taskId);
+
+      if (!task) {
+        document.getElementById('taskDetailMain').innerHTML = `
+          <div class="empty-state">
+            <svg width="48" height="48"><use href="assets/icons.svg#icon-search"/></svg>
+            <div class="empty-state__title">Task not found</div>
+            <p><a href="index.html">Back to dashboard</a></p>
+          </div>
+        `;
+        return;
+      }
+
+      const rel = getRelativeDate(task.dueDate);
+      const sourceIcons = { photo: 'camera', email: 'envelope', text: 'chat', voice: 'microphone' };
+      const sourceLabels = { photo: 'Photo scan', email: 'Email forward', text: 'Text message', voice: 'Voice note' };
+
+      document.getElementById('taskDetailMain').innerHTML = `
+        <div style="margin-bottom:var(--space-6)">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-4)">
+            <span class="badge badge--${task.priority}">${task.priority}</span>
+            <span class="badge badge--${task.category}">${CATEGORIES[task.category].label}</span>
+            ${task.status === 'delegated' ? '<span class="badge badge--delegated">Delegated</span>' : ''}
+          </div>
+          <h1 style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);line-height:var(--line-height-tight);margin-bottom:var(--space-2)">${task.title}</h1>
+        </div>
+
+        <div class="detail-panel__meta-grid" style="margin-bottom:var(--space-8)">
+          <div>
+            <div class="detail-panel__meta-label">Due Date</div>
+            <div class="detail-panel__meta-value ${rel.class}">${rel.text} — ${formatDate(task.dueDate)}</div>
+          </div>
+          <div>
+            <div class="detail-panel__meta-label">Source</div>
+            <div class="detail-panel__meta-value" style="display:flex;align-items:center;gap:8px">
+              <svg width="16" height="16"><use href="assets/icons.svg#icon-${sourceIcons[task.source]}"/></svg>
+              ${sourceLabels[task.source]}
+            </div>
+          </div>
+          ${task.amount ? `
+            <div>
+              <div class="detail-panel__meta-label">Amount</div>
+              <div class="detail-panel__meta-value amount">${formatCurrency(task.amount)}</div>
+            </div>
+          ` : ''}
+          ${task.status === 'delegated' ? `
+            <div>
+              <div class="detail-panel__meta-label">Delegated To</div>
+              <div class="detail-panel__meta-value">${task.delegatedTo}</div>
+            </div>
+          ` : ''}
+          <div>
+            <div class="detail-panel__meta-label">Created</div>
+            <div class="detail-panel__meta-value">${formatDate(task.createdAt)}</div>
+          </div>
+        </div>
+
+        ${task.sourcePreview ? `
+          <div style="margin-bottom:var(--space-8)">
+            <div class="detail-panel__section-title">Source Document</div>
+            <div class="detail-panel__source-preview">
+              <img src="assets/mock-sources/${task.sourcePreview}.svg" alt="Source document"
+                   style="max-width:100%;max-height:240px;border-radius:8px"
+                   onerror="this.parentNode.innerHTML='<span style=color:var(--color-text-tertiary)>Document preview</span>'">
+            </div>
+          </div>
+        ` : ''}
+
+        <div style="margin-bottom:var(--space-8)">
+          <div class="detail-panel__section-title">Notes</div>
+          <div class="detail-panel__notes">${task.notes || 'No notes.'}</div>
+        </div>
+
+        <div style="display:flex;gap:var(--space-3);padding:var(--space-5) 0;border-top:1px solid var(--color-border)">
+          <button class="btn btn--success btn--large" onclick="completeTask(${task.id}); location.href='index.html';" style="flex:1">
+            <svg width="20" height="20"><use href="assets/icons.svg#icon-checkmark"/></svg>
+            Complete
+          </button>
+          <button class="btn btn--secondary btn--large" onclick="toggleSnooze(event, ${task.id})" style="flex:1;position:relative">
+            <svg width="20" height="20"><use href="assets/icons.svg#icon-clock"/></svg>
+            Snooze
+          </button>
+          <button class="btn btn--secondary btn--large" onclick="delegateTask(${task.id}); location.href='index.html';" style="flex:1">
+            <svg width="20" height="20"><use href="assets/icons.svg#icon-delegate"/></svg>
+            Delegate
+          </button>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
