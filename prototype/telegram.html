@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>FocusFlow — Telegram Bot</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/layouts.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-page="telegram">
+
+  <div class="telegram">
+    <!-- Telegram Header -->
+    <div class="telegram__header">
+      <a href="index.html" class="telegram__header-back" title="Back to Dashboard">
+        <svg><use href="assets/icons.svg#icon-arrow-left"/></svg>
+      </a>
+      <div class="telegram__header-avatar">
+        <svg viewBox="0 0 32 32"><use href="assets/icons.svg#icon-bot"/></svg>
+      </div>
+      <div class="telegram__header-info">
+        <div class="telegram__header-name">FocusFlow Bot</div>
+        <div class="telegram__header-status">online</div>
+      </div>
+      <a href="index.html" class="btn btn--ghost btn--icon" style="color:white" title="Open Dashboard">
+        <svg width="20" height="20"><use href="assets/icons.svg#icon-grid"/></svg>
+      </a>
+    </div>
+
+    <!-- Messages -->
+    <div class="telegram__messages" id="telegramMessages">
+      <!-- Rendered by JS -->
+    </div>
+
+    <!-- Input Bar -->
+    <div class="telegram__input-bar">
+      <button class="telegram__input-btn" title="Attach file">
+        <svg><use href="assets/icons.svg#icon-attachment"/></svg>
+      </button>
+      <button class="telegram__input-btn" title="Take photo">
+        <svg><use href="assets/icons.svg#icon-camera"/></svg>
+      </button>
+      <input type="text" class="telegram__input-field" placeholder="Message FocusFlow Bot..." readonly>
+      <button class="telegram__input-btn" title="Voice note" style="color:var(--color-telegram-blue)">
+        <svg><use href="assets/icons.svg#icon-microphone"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

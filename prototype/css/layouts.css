@@ -1,0 +1,600 @@
+/* ==========================================================================
+   FocusFlow Layout Styles
+   Page structure, header, content area, responsive grid
+   ========================================================================== */
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---- App Shell ---- */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+/* ---- Header ---- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  min-height: 56px;
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: var(--color-text-primary);
+}
+
+.header__logo {
+  width: 32px;
+  height: 32px;
+}
+
+.header__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.01em;
+}
+
+.header__date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ---- Sticky Filter Bar ---- */
+.filter-bar-wrapper {
+  position: sticky;
+  top: 56px;
+  z-index: var(--z-sticky);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ---- Main Content ---- */
+.main {
+  flex: 1;
+  padding: var(--space-5);
+  padding-bottom: calc(var(--space-16) + 56px); /* Space for FAB */
+}
+
+/* ---- Section Headers ---- */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.section-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+}
+
+.section-count {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* ---- Task List ---- */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.task-list__group {
+  margin-bottom: var(--space-6);
+}
+
+/* ---- Hero Section ---- */
+.hero-section {
+  margin-bottom: var(--space-6);
+}
+
+.hero-section__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-priority-critical);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero-section__label svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---- Feed Layout ---- */
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  padding-bottom: calc(var(--space-16) + 56px);
+}
+
+.feed__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-2) 0;
+}
+
+.feed__divider::before,
+.feed__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.feed__divider-text {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+}
+
+.feed__message {
+  display: flex;
+  gap: var(--space-3);
+  max-width: 85%;
+}
+
+.feed__message--system {
+  align-self: flex-start;
+}
+
+.feed__message--task {
+  align-self: stretch;
+  max-width: 100%;
+}
+
+.feed__message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.feed__message-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.feed__message-bubble {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+}
+
+.feed__message-bubble--accent {
+  background: linear-gradient(135deg, #EEF2FF, #F5F3FF);
+  border-color: #C7D2FE;
+}
+
+.feed__message-time {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-1);
+}
+
+.feed__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.feed__status svg {
+  width: 16px;
+  height: 16px;
+}
+
+.feed__status--success {
+  color: #065F46;
+}
+
+.feed__status--reminder {
+  color: var(--color-priority-high);
+}
+
+/* ---- Telegram Layout ---- */
+.telegram {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--color-telegram-bg);
+}
+
+.telegram__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-telegram-blue);
+  color: white;
+  min-height: 56px;
+}
+
+.telegram__header-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
+  color: white;
+  text-decoration: none;
+}
+
+.telegram__header-back svg {
+  width: 24px;
+  height: 24px;
+}
+
+.telegram__header-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.telegram__header-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.telegram__header-info {
+  flex: 1;
+}
+
+.telegram__header-name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.telegram__header-status {
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+}
+
+.telegram__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.telegram__bubble {
+  max-width: 80%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  position: relative;
+}
+
+.telegram__bubble--user {
+  align-self: flex-end;
+  background: var(--color-telegram-bubble-user);
+  border-bottom-right-radius: 4px;
+}
+
+.telegram__bubble--bot {
+  align-self: flex-start;
+  background: var(--color-telegram-bubble-bot);
+  border-bottom-left-radius: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.telegram__bubble-time {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  text-align: right;
+  margin-top: var(--space-1);
+}
+
+.telegram__bubble-image {
+  width: 100%;
+  max-width: 240px;
+  height: 160px;
+  background: var(--color-surface-hover);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.telegram__bubble-image svg {
+  width: 100%;
+  height: 100%;
+}
+
+.telegram__voice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+}
+
+.telegram__voice-wave {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 24px;
+}
+
+.telegram__voice-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--color-accent);
+}
+
+.telegram__voice-duration {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.telegram__typing {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+}
+
+.telegram__typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-tertiary);
+}
+
+.telegram__input-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.telegram__input-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
+  border: none;
+  background: none;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+}
+
+.telegram__input-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.telegram__input-field {
+  flex: 1;
+  height: var(--touch-target-min);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  background: var(--color-bg);
+  outline: none;
+}
+
+.telegram__input-field:focus {
+  border-color: var(--color-telegram-blue);
+}
+
+/* ---- Next Action Layout ---- */
+.next-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-8);
+  text-align: center;
+  position: relative;
+}
+
+.next-action__bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  z-index: 0;
+}
+
+.next-action__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+}
+
+.next-action__sparkle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #EEF2FF, #F5F3FF);
+  color: var(--color-accent);
+}
+
+.next-action__sparkle svg {
+  width: 28px;
+  height: 28px;
+}
+
+.next-action__heading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+}
+
+.next-action__rationale {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-8);
+  padding: var(--space-4);
+  background: var(--color-surface-hover);
+  border-radius: var(--radius-md);
+}
+
+.next-action__rationale svg {
+  width: 16px;
+  height: 16px;
+  display: inline;
+  vertical-align: -2px;
+  margin-right: var(--space-1);
+  color: var(--color-accent);
+}
+
+.next-action__buttons {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.next-action__back {
+  margin-top: var(--space-8);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* ---- Responsive: iPad Portrait ---- */
+@media (max-width: 768px) {
+  .header__date {
+    display: none;
+  }
+
+  .task-card--hero .task-card__title {
+    font-size: var(--font-size-lg);
+  }
+
+  .detail-panel__meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Responsive: iPad Landscape ---- */
+@media (min-width: 1024px) {
+  .main {
+    padding: var(--space-6) var(--space-8);
+  }
+
+  .task-list {
+    gap: var(--space-4);
+  }
+}
+
+/* ---- Responsive: iPhone graceful degradation ---- */
+@media (max-width: 430px) {
+  .header__top {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .main {
+    padding: var(--space-3);
+  }
+
+  .filter-bar {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .task-card {
+    padding: var(--space-4);
+  }
+
+  .task-card--hero {
+    padding: var(--space-5);
+  }
+
+  .fab {
+    bottom: var(--space-5);
+    right: var(--space-4);
+  }
+}
