@@ -1,0 +1,229 @@
+/* ==========================================================================
+   FocusFlow Animations
+   Micro-animations, transitions, and keyframe animations
+   ========================================================================== */
+
+/* ---- Page Entrance ---- */
+.page-enter {
+  animation: fadeInUp 400ms ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Staggered Card Entrance ---- */
+.task-card {
+  animation: fadeInUp 400ms ease both;
+}
+
+.task-list .task-card:nth-child(1) { animation-delay: 0ms; }
+.task-list .task-card:nth-child(2) { animation-delay: 60ms; }
+.task-list .task-card:nth-child(3) { animation-delay: 120ms; }
+.task-list .task-card:nth-child(4) { animation-delay: 180ms; }
+.task-list .task-card:nth-child(5) { animation-delay: 240ms; }
+.task-list .task-card:nth-child(6) { animation-delay: 300ms; }
+.task-list .task-card:nth-child(7) { animation-delay: 360ms; }
+.task-list .task-card:nth-child(8) { animation-delay: 420ms; }
+
+/* ---- Critical Priority Pulse ---- */
+@keyframes priorityPulse {
+  0%, 100% {
+    box-shadow: var(--shadow-md);
+  }
+  50% {
+    box-shadow: var(--shadow-md), 0 0 0 3px rgba(220, 53, 69, 0.15);
+  }
+}
+
+.task-card--hero[data-priority="critical"] {
+  animation: priorityPulse 3s ease-in-out infinite;
+}
+
+/* ---- Slide Out Right (Complete) ---- */
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+    max-height: 200px;
+    margin-bottom: var(--space-3);
+  }
+  50% {
+    transform: translateX(100%);
+    opacity: 0;
+    max-height: 200px;
+    margin-bottom: var(--space-3);
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+  }
+}
+
+/* ---- Slide In (Undo restore) ---- */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.task-card--restoring {
+  animation: slideInLeft 300ms ease both;
+}
+
+/* ---- FAB Bounce In ---- */
+@keyframes fabBounceIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fab {
+  animation: fabBounceIn 500ms ease 300ms both;
+}
+
+/* ---- Toast Slide Up ---- */
+@keyframes toastIn {
+  from {
+    transform: translateX(-50%) translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ---- Telegram Typing Dots ---- */
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+.telegram__typing-dot:nth-child(1) { animation: typingBounce 1.4s ease-in-out infinite; }
+.telegram__typing-dot:nth-child(2) { animation: typingBounce 1.4s ease-in-out 0.2s infinite; }
+.telegram__typing-dot:nth-child(3) { animation: typingBounce 1.4s ease-in-out 0.4s infinite; }
+
+/* ---- Voice Waveform Animation ---- */
+@keyframes waveBar {
+  0%, 100% {
+    height: 4px;
+  }
+  50% {
+    height: var(--wave-height, 16px);
+  }
+}
+
+.telegram__voice-bar {
+  animation: waveBar 1s ease-in-out infinite;
+}
+
+/* ---- Fade In ---- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 300ms ease both;
+}
+
+/* ---- Shimmer (loading placeholder) ---- */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-hover) 25%,
+    var(--color-surface) 50%,
+    var(--color-surface-hover) 75%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ---- Filter Transition ---- */
+.task-card--hidden {
+  animation: collapseOut 300ms ease forwards;
+}
+
+@keyframes collapseOut {
+  0% {
+    opacity: 1;
+    max-height: 200px;
+    margin-bottom: var(--space-3);
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    padding: 0;
+    border-width: 0;
+    transform: scale(0.95);
+  }
+}
+
+.task-card--showing {
+  animation: expandIn 300ms ease both;
+}
+
+@keyframes expandIn {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    max-height: 200px;
+    transform: scale(1);
+  }
+}
+
+/* ---- Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
